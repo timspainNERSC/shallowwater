@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(shallowwater)
 
-find_package(NetCDF REQUIRED)
+set( CMAKE_VERBOSE_MAKEFILE on )
+
+find_package(netCDF REQUIRED)
 
 add_executable(shallowwater hello.cpp)
-target_link_libraries(shallowwater LINK_PUBLIC ${NETCDF_LIBRARIES_C})
+target_include_directories(shallowwater PUBLIC ${netCDF_INCLUDE_DIR})
+target_link_directories(shallowwater PUBLIC ${netCDF_LIB_DIR})
+target_link_libraries(shallowwater LINK_PUBLIC netcdf-cxx4)

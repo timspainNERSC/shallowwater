@@ -16,16 +16,16 @@
 #endif
 
 #if defined ITERATION_GOSA
-#include "gosa.hpp"
+#include "GosA.hpp"
 typedef GosA IterationProvider;
 #elif defined ITERATION_SOGB
-#include "sogb.hpp"
+#include "SogB.hpp"
 typedef SogB IterationProvider;
 #elif defined ITERATION_GOSB
-#include "gosb.hpp"
+#include "GosB.hpp"
 typedef GosB IterationProvider;
 #elif defined ITERATION_SOGA
-#include "soga.hpp"
+#include "SogA.hpp"
 typedef SogA IterationProvider;
 #endif
 

@@ -23,6 +23,8 @@ public:
 	void setData(std::vector<double> const& data);
 
 	double& operator() (int i, int j);
+	double operator() (int i, int j) const;
+
 private:
 	int nx;
 	int ny;

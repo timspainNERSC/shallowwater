@@ -33,10 +33,15 @@ DoubleData2d::DoubleData2d(const DoubleData2d& source):
 
 void DoubleData2d::setData(std::vector<double> const& data)
 {
-	this->data(data);
+	this->data = data;
 }
 
 double& DoubleData2d::operator() (int i, int j)
+{
+	return data[ny*i + j];
+}
+
+double DoubleData2d::operator() (int i, int j) const
 {
 	return data[ny*i + j];
 }

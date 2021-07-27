@@ -8,7 +8,7 @@
 #ifndef SHALLOWWATERDATA_HPP
 #define SHALLOWWATERDATA_HPP
 
-#include <DoubleData2d.hpp>
+#include "DoubleData2d.hpp"
 
 class ShallowWaterData {
 public:

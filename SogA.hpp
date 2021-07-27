@@ -14,7 +14,7 @@ class SogA {
 public:
 	SogA();
 
-	SogA(int nx, int ny);
+	SogA(int nx, int ny, double delta_x, double delta_y);
 
 	void setF(double f);
 	void setG(double g);
@@ -25,10 +25,18 @@ public:
 private:
 	int nx;
 	int ny;
+
+	double delta_x;
+	double delta_y;
+
 	double f;
 	double g;
 	ShallowWaterData data;
 
+	DoubleData2d dx(DoubleData2d const& argument);
+	DoubleData2d dy(DoubleData2d const& argument);
+
+	void integrate(DoubleData2d& variable, DoubleData2d const& derivative, double dt);
 };
 
 #endif /*ndef SOGA_HPP */

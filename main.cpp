@@ -19,7 +19,10 @@ int main( ) {
 	int ny;
 	std::cin >> nx >> ny;
 
-	IIteration iteration(nx, ny);
+	double dx = lx / (nx - 1);
+	double dy = ly / (ny - 1);
+
+	IIteration iteration(nx, ny, dx, dy);
 
 	// Fill the physical constants
 	double g = 9.80665; // m s⁻²
@@ -27,8 +30,6 @@ int main( ) {
 	iteration.setF(f);
 	iteration.setG(g);
 
-	double dx = lx / (nx - 1);
-	double dy = ly / (ny - 1);
 
 	ShallowWaterData swd(nx, ny);
 	// Fill the constant eastward wind data

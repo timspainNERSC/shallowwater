@@ -32,8 +32,8 @@ typedef SogA IterationProvider;
 class IIteration {
 public:
 	// Create the iteration object with a certain size.
-	IIteration(int nx, int ny):
-		iterPro(nx, ny)
+	IIteration(int nx, int ny, double delta_x, double delta_y):
+		iterPro(nx, ny, delta_x, delta_y)
 	{}
 
 	void setF(double f) {iterPro.setF(f);}

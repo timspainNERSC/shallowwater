@@ -16,7 +16,7 @@ DoubleData2d(0,0)
 DoubleData2d::DoubleData2d(int nx, int ny):
 		nx(nx), ny(ny)
 {
-	data.resize(nx, ny);
+	data.resize(nx*ny);
 }
 
 // Initialize with data
@@ -27,7 +27,7 @@ DoubleData2d::DoubleData2d(int nx, int ny, std::vector<double> const& data):
 }
 
 // Copy constructor
-DoubleData2d::DoubleData2d(DoubleData2d& source):
+DoubleData2d::DoubleData2d(const DoubleData2d& source):
 	DoubleData2d(source.nx, source.ny, source.data)
 { }
 

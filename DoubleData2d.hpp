@@ -18,7 +18,7 @@ public:
 	// Initialize with data
 	DoubleData2d(int nx, int ny, std::vector<double> const& data);
 	// Copy constructor
-	DoubleData2d(DoubleData2d& source);
+	DoubleData2d(const DoubleData2d& source);
 
 	void setData(std::vector<double> const& data);
 

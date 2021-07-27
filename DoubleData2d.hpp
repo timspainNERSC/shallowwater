@@ -13,27 +13,14 @@
 class DoubleData2d {
 public:
 	// Default array size is 0
-	DoubleData2d():
-		DoubleData2d(0,0)
-	{}
-
-	DoubleData2d(int nx, int ny):
-		nx(nx), ny(ny)
-	{
-		data.resize(nx*ny);
-	}
-
+	DoubleData2d();
+	DoubleData2d(int nx, int ny);
 	// Initialize with data
-	DoubleData2d(int nx, int ny, std::vector<double> data):
-		DoubleData2d(nx, ny)
-	{
-		setData(data);
-	}
-
+	DoubleData2d(int nx, int ny, std::vector<double> const& data);
 	// Copy constructor
-	DoubleData2d(DoubleData2d source);
+	DoubleData2d(DoubleData2d& source);
 
-	void setData(std::vector<double>);
+	void setData(std::vector<double> const& data);
 
 	double& operator() (int i, int j);
 private:

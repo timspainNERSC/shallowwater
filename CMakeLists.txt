@@ -7,6 +7,7 @@ project(shallowwater)
 set( CMAKE_VERBOSE_MAKEFILE on )
 
 find_package(netCDF REQUIRED)
+find_package(Catch2 REQUIRED)
 
 add_executable(hello hello.cpp)
 target_include_directories(hello PUBLIC ${netCDF_INCLUDE_DIR})
@@ -21,3 +22,16 @@ set(ShallowWaterSources
 	)
 
 add_executable(shallowwater ${ShallowWaterSources})
+
+# Testing
+add_executable(testsoga
+	test/TestSogA.cpp
+	SogA.cpp
+	ShallowWaterData.cpp
+	DoubleData2d.cpp)
+
+target_link_libraries(testsoga PRIVATE Catch2::Catch2)
+
+include(CTest)
+include(Catch)
+catch_discover_tests(testsoga)

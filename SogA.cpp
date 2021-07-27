@@ -13,7 +13,8 @@ SogA(0, 0, 1., 1.)
 
 SogA::SogA(int nx, int ny, double delta_x, double delta_y):
 	nx(nx), ny(ny), delta_x(delta_x), delta_y(delta_y),
-	g(0.), f(0.)
+	g(0.), f(0.),
+	data(nx, ny)
 { }
 
 void SogA::setF(double f)
@@ -28,7 +29,7 @@ void SogA::setG(double g)
 
 void SogA::setData(ShallowWaterData &data)
 {
-	this->data(data);
+	this->data = data;
 }
 
 ShallowWaterData SogA::getData()
@@ -57,12 +58,12 @@ void SogA::iterate(double dt)
 			du_dt(i, j) = -data.u(i, j) * du_dx(i, j)
 					- data.v(i, j) * du_dy(i, j)
 					+ this->f * data.v(i, j)
-					- this*g * dh_dx(i, j);
+					- this->g * dh_dx(i, j);
 
 			dv_dt(i, j) = -data.u(i, j) * dv_dx(i, j)
 					- data.v(i, j) * dv_dy(i, j)
 					- this->f * data.u(i, j)
-					- this*g * dh_dy(i, j);
+					- this->g * dh_dy(i, j);
 
 			dh_dt(i, j) = -data.u(i, j) * dh_dx(i, j)
 					- data.v(i, j) * dh_dy(i, j)
@@ -120,4 +121,16 @@ DoubleData2d SogA::dy(DoubleData2d const& argument)
 	}
 
 	return derivative;
+}
+
+DoubleData2d& SogA::integrate(DoubleData2d& variable, const DoubleData2d& derivative, double dt)
+{
+
+	for (int i = 0; i < nx; i++) {
+		for (int j = 0; j < ny; j++) {
+			variable(i, j) = derivative(i, j) * dt;
+		}
+	}
+
+	return variable;
 }

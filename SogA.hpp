@@ -36,7 +36,7 @@ private:
 	DoubleData2d dx(DoubleData2d const& argument);
 	DoubleData2d dy(DoubleData2d const& argument);
 
-	void integrate(DoubleData2d& variable, DoubleData2d const& derivative, double dt);
+	DoubleData2d& integrate(DoubleData2d& variable, const DoubleData2d& derivative, double dt);
 };
 
 #endif /*ndef SOGA_HPP */

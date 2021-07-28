@@ -108,7 +108,7 @@ DoubleData2d SogA::dy(DoubleData2d const& argument)
 
 	// Interior elements
 	for (int i = 0; i < nx; i++) {
-		for (int j = 1; j < nx-1; j++) {
+		for (int j = 1; j < ny-1; j++) {
 			derivative(i, j) = (argument(i, j+1) - argument(i, j-1)) * denominator;
 		}
 	}

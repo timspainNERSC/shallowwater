@@ -32,6 +32,12 @@ add_executable(testsoga
 
 target_link_libraries(testsoga PRIVATE Catch2::Catch2)
 
+add_executable(testdd2d
+	test/TestDD2d.cpp
+	DoubleData2d.cpp)
+
+target_link_libraries(testdd2d PRIVATE Catch2::Catch2)
+
 include(CTest)
 include(Catch)
 catch_discover_tests(testsoga)

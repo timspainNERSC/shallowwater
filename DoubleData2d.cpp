@@ -5,6 +5,8 @@
  *      Author: Tim Spain
  */
 
+#include <stdexcept>
+#include <sstream>
 #include "DoubleData2d.hpp"
 
 // Default constructor
@@ -38,6 +40,16 @@ void DoubleData2d::setData(std::vector<double> const& data)
 
 double& DoubleData2d::operator() (int i, int j)
 {
+	if ( (i < 0) || (i >= nx) ) {
+		std::stringstream eText;
+		eText << "Index i out of range: i=" << i << ". Valid range 0.." << nx-1;
+		throw std::out_of_range(eText.str());
+	}
+	if ( (j < 0) || (j >= ny) ) {
+		std::stringstream eText;
+		eText << "Index j out of range: j=" << j << ". Valid range 0.." << ny-1;
+		throw std::out_of_range(eText.str());
+	}
 	return data[ny*i + j];
 }
 

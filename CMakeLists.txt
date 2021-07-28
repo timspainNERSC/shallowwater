@@ -38,6 +38,12 @@ add_executable(testdd2d
 
 target_link_libraries(testdd2d PRIVATE Catch2::Catch2)
 
+add_executable(testdoublederiv
+	test/TestDoubleDeriv.cpp
+	DoubleDeriv.cpp)
+
+target_link_libraries(testdoublederiv PRIVATE Catch2::Catch2)
+
 include(CTest)
 include(Catch)
 catch_discover_tests(testsoga)

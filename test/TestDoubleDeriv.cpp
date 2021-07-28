@@ -40,6 +40,10 @@ TEST_CASE("Assignment and retrieval of x derivative", "[DoubleDeriv]")
 	get = u.xDeriv();
 	REQUIRE(get == xD);
 	REQUIRE(get == pass);
+
+	int delta = 3444;
+	u = delta + xD;
+	REQUIRE(u == (delta + xD));
 }
 
 TEST_CASE("Assignment and retrieval of y derivative", "[DoubleDeriv]")

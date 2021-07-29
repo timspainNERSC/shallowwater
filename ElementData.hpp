@@ -19,8 +19,8 @@ public:
 	DoubleDeriv h;
 	void iterate(double dt);
 
-	static void setF(double fin) { f = fin; };
-	static void setG(double gin) { g = gin; };
+	static void setF(double fin);
+	static void setG(double gin);
 private:
 	static double f;
 	static double g;

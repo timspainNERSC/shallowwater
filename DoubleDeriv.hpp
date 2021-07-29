@@ -17,6 +17,9 @@ public:
 	double yDeriv();
 	double& setXDeriv(const double&);
 	double& setYDeriv(const double&);
+
+	DoubleDeriv& operator+=(const double&);
+	DoubleDeriv& operator+=(const DoubleDeriv&);
 private:
 	double value;
 public:

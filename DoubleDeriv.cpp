@@ -39,3 +39,15 @@ double DoubleDeriv::yDeriv( )
 {
 	return d_dy;
 }
+
+DoubleDeriv& DoubleDeriv::operator+=(const double& addend)
+{
+	value += addend;
+	return *this;
+}
+
+DoubleDeriv& DoubleDeriv::operator+=(const DoubleDeriv& addend)
+{
+	value += addend.value;
+	return *this;
+}

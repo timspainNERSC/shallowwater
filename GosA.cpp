@@ -97,7 +97,7 @@ void GosA::iterate(double dt)
 					&data[indexer(i, 1)],
 					delta_y/2);
 		// bulk data
-		for (int j = 1; j < ny; j++) {
+		for (int j = 1; j < ny-1; j++) {
 			basicDerivatives(&data[indexer(i, j-1)],
 						&data[indexer(i, j)],
 						&data[indexer(i, j+1)],

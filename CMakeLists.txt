@@ -14,14 +14,29 @@ target_include_directories(hello PUBLIC ${netCDF_INCLUDE_DIR})
 target_link_directories(hello PUBLIC ${netCDF_LIB_DIR})
 target_link_libraries(hello LINK_PUBLIC netcdf-cxx4)
 
-set(ShallowWaterSources
+set(CommonSources
 	"main.cpp"
-	"DoubleData2d.cpp"
 	"ShallowWaterData.cpp"
+	"DoubleData2d.cpp"
+	)
+	
+set(SogaSources
+	${CommonSources}
 	"SogA.cpp"
 	)
 
-add_executable(shallowwater ${ShallowWaterSources})
+add_executable(soga ${SogaSources})
+target_compile_definitions(soga PRIVATE ITERATION_SOGA=1)
+
+set(GosaSources
+	${CommonSources}
+	"Gosa.cpp"
+	"ElementData.cpp"
+	"DoubleDeriv.cpp"
+	)
+
+add_executable(gosa ${GosaSources})
+target_compile_definitions(gosa PRIVATE ITERATION_GOSA=1)
 
 # Testing
 add_executable(testsoga

@@ -7,6 +7,9 @@
 
 #include "ElementData.hpp"
 
+double ElementData::f;
+double ElementData::g;
+
 ElementData::ElementData() :
 ElementData(0., 0., 0.)
 { }
@@ -35,4 +38,14 @@ void ElementData::iterate(double dt)
 	v += dv_dt * dt;
 	h += dh_dt * dt;
 
+}
+
+void ElementData::setF(double fin)
+{
+	f = fin;
+}
+
+void ElementData::setG(double gin)
+{
+	g = gin;
 }

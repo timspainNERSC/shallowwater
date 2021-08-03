@@ -6,8 +6,10 @@
  */
 
 #include <iostream>
+#include <cmath>
 #include "IIteration.hpp"
 #include "ShallowWaterData.hpp"
+#include "PGMWriter.hpp"
 
 int main( ) {
 	// Hardcoded physical grid dimensions
@@ -39,24 +41,43 @@ int main( ) {
 	double u0 = 5.0; // m s⁻¹
 	double h0 = - f * u0 / g;
 
+	// Geopotential blob, not in balance
+	double h1 = 10.; // m
+	double x0 = nx / 2.;
+	double y0 = ny / 2.;
+	double r0 = 5.;
+
 	for (int i = 0; i < nx; i++) {
 		for (int j = 0; j < ny; j++) {
 			swd.u(i, j) = u0;
 			swd.v(i, j) = 0.;
-			swd.h(i, j) = h0 * (-1 * j * dy);
+			swd.h(i, j) = h1 * (-1 * j * dy);
+			double r = (i - x0) * (i - x0) + (j - y0) * (j - y0);
+			if (r <= r0) {
+				swd.h(i, j) += h1 * sqrt(1. - r/r0);
+			}
 		}
 	}
 	iteration.setData(swd);
 
 	// Hard-coded duration and time step
 	double dt = 100.;
-	double lt = 1e7; // 115.7 days
+	double lt = 1000; // 115.7 days
+
+	PGMWriter::writeSWD(0, swd);
+	const double writeInterval = 1 * dt;
+	double last_write_t = 0.;
 
 	for (double t = 0.0; t < lt; t += dt) {
+		if (t - last_write_t >= writeInterval) {
+			PGMWriter::writeSWD(t, iteration.getData());
+			last_write_t = t;
+		}
 		iteration.iterate(dt);
 	}
 
 	ShallowWaterData result = iteration.getData();
+	PGMWriter::writeSWD(lt, result);
 }
 
 

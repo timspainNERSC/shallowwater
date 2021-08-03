@@ -128,7 +128,7 @@ DoubleData2d& SogA::integrate(DoubleData2d& variable, const DoubleData2d& deriva
 
 	for (int i = 0; i < nx; i++) {
 		for (int j = 0; j < ny; j++) {
-			variable(i, j) = derivative(i, j) * dt;
+			variable(i, j) += derivative(i, j) * dt;
 		}
 	}
 

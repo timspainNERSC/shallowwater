@@ -59,11 +59,18 @@ ShallowWaterData GosA::getData()
 	return out;
 }
 
-void basicDerivatives(ElementData* left, ElementData* here, ElementData* right, double delta_x)
+void basicDerivativesX(ElementData* left, ElementData* here, ElementData* right, double delta_x)
 {
 	here->u.d_dx = (right->u - left->u) / (2*delta_x);
 	here->v.d_dx = (right->v - left->v) / (2*delta_x);
 	here->h.d_dx = (right->h - left->h) / (2*delta_x);
+}
+
+void basicDerivativesY(ElementData* below, ElementData* here, ElementData* above, double delta_y)
+{
+	here->u.d_dy = (above->u - below->u) / (2*delta_y);
+	here->v.d_dy = (above->v - below->v) / (2*delta_y);
+	here->h.d_dy = (above->h - below->h) / (2*delta_y);
 }
 
 void GosA::iterate(double dt)
@@ -75,14 +82,14 @@ void GosA::iterate(double dt)
 		ElementData* last_col = &data[indexer(nx - 1, j)];
 		ElementData* first_col = &data[indexer(0, j)];
 
-		basicDerivatives(last_col, first_col, &data[indexer(1, j)], delta_x);
-		basicDerivatives(&data[indexer(nx-2, j)], last_col, first_col, delta_x);
+		basicDerivativesX(last_col, first_col, &data[indexer(1, j)], delta_x);
+		basicDerivativesX(&data[indexer(nx-2, j)], last_col, first_col, delta_x);
 	}
 
 	// bulk data
 	for (int i = 1; i < nx-1; i++) {
 		for (int j = 0; j < ny; j++) {
-			basicDerivatives(&data[indexer(i-1, j)],
+			basicDerivativesX(&data[indexer(i-1, j)],
 					&data[indexer(i, j)],
 					&data[indexer(i+1, j)],
 					delta_x);
@@ -92,19 +99,19 @@ void GosA::iterate(double dt)
 	// y
 	for (int i = 0; i < nx; i++) {
 		// top edge
-		basicDerivatives(&data[indexer(i, 0)],
+		basicDerivativesY(&data[indexer(i, 0)],
 					&data[indexer(i, 0)],
 					&data[indexer(i, 1)],
 					delta_y/2);
 		// bulk data
 		for (int j = 1; j < ny-1; j++) {
-			basicDerivatives(&data[indexer(i, j-1)],
+			basicDerivativesY(&data[indexer(i, j-1)],
 						&data[indexer(i, j)],
 						&data[indexer(i, j+1)],
 						delta_y);
 		}
 		// bottom edge
-		basicDerivatives(&data[indexer(i, ny-2)],
+		basicDerivativesY(&data[indexer(i, ny-2)],
 					&data[indexer(i, ny-1)],
 					&data[indexer(i, ny-1)],
 					delta_y/2);

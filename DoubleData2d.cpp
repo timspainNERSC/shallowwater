@@ -7,7 +7,11 @@
 
 #include <stdexcept>
 #include <sstream>
+#include <limits>
 #include "DoubleData2d.hpp"
+
+// Size of the overall std::vector
+#define NZ (nx*ny)
 
 // Default constructor
 DoubleData2d::DoubleData2d():
@@ -18,7 +22,7 @@ DoubleData2d(0,0)
 DoubleData2d::DoubleData2d(int nx, int ny):
 		nx(nx), ny(ny)
 {
-	data.resize(nx*ny);
+	data.resize(NZ);
 }
 
 // Initialize with data
@@ -56,4 +60,23 @@ double& DoubleData2d::operator() (int i, int j)
 double DoubleData2d::operator() (int i, int j) const
 {
 	return data[ny*i + j];
+}
+
+std::pair<double, double> DoubleData2d::range() const
+{
+	double min = std::numeric_limits<double>::max();
+	double max = -min;
+
+	// Run over all elements, getting the extremes
+	for (int k = 0; k < NZ; k++) {
+			double sample = data[k];
+			min = (sample < min) ? sample : min;
+			max = (sample > max) ? sample : max;
+	}
+	return std::pair<double, double> (min, max);
+}
+
+std::pair<int, int> DoubleData2d::gridSize() const
+{
+	return std::pair<int, int> (nx, ny);
 }

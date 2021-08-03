@@ -18,6 +18,7 @@ set(CommonSources
 	"main.cpp"
 	"ShallowWaterData.cpp"
 	"DoubleData2d.cpp"
+	"PGMWriter.cpp"
 	)
 	
 set(SogaSources
@@ -59,6 +60,12 @@ add_executable(testdoublederiv
 
 target_link_libraries(testdoublederiv PRIVATE Catch2::Catch2)
 
+add_executable(testpgmwriter
+	test/TestPGMWriter.cpp
+	PGMWriter.cpp
+	DoubleData2d.cpp)
+	
+target_link_libraries(testpgmwriter PRIVATE Catch2::Catch2)
 include(CTest)
 include(Catch)
 catch_discover_tests(testsoga)

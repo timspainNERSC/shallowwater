@@ -9,6 +9,7 @@
 #define DOUBLEDATA2D_HPP
 
 #include <vector>
+#include <utility>
 
 class DoubleData2d {
 public:
@@ -25,6 +26,9 @@ public:
 	double& operator() (int i, int j);
 	double operator() (int i, int j) const;
 
+	std::pair<double, double> range() const;
+
+	std::pair<int, int> gridSize() const;
 private:
 	int nx;
 	int ny;

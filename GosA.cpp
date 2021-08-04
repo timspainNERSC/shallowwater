@@ -59,18 +59,22 @@ ShallowWaterData GosA::getData()
 	return out;
 }
 
+double basicDerivative(double rhValue, double lhValue, double denominator) {
+	return (rhValue - lhValue) / denominator;
+}
+
 void basicDerivativesX(ElementData* left, ElementData* here, ElementData* right, double delta_x)
 {
-	here->u.d_dx = (right->u - left->u) / (2*delta_x);
-	here->v.d_dx = (right->v - left->v) / (2*delta_x);
-	here->h.d_dx = (right->h - left->h) / (2*delta_x);
+	here->u.d_dx = basicDerivative(right->u, left->u, 2*delta_x);
+	here->v.d_dx = basicDerivative(right->v, left->v, 2*delta_x);
+	here->h.d_dx = basicDerivative(right->h, left->h, 2*delta_x);
 }
 
 void basicDerivativesY(ElementData* below, ElementData* here, ElementData* above, double delta_y)
 {
-	here->u.d_dy = (above->u - below->u) / (2*delta_y);
-	here->v.d_dy = (above->v - below->v) / (2*delta_y);
-	here->h.d_dy = (above->h - below->h) / (2*delta_y);
+	here->u.d_dy = basicDerivative(below->u, above->u, 2*delta_y);
+	here->v.d_dy = basicDerivative(below->v, above->v, 2*delta_y);
+	here->h.d_dy = basicDerivative(below->h, above->h, 2*delta_y);
 }
 
 void GosA::iterate(double dt)
